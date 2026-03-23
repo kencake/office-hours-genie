@@ -673,11 +673,10 @@
       const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzHIk4jP-m1OMrXZNMwngfkr7bH7ej0gCiN6X69SM4LMpFCLVAgzuBO-3y_fshqC6SsCw/exec';
 
       try {
-        await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+        const params = new URLSearchParams(data);
+        await fetch(SCRIPT_URL + '?' + params.toString(), {
+          method: 'GET',
+          mode: 'no-cors'
         });
         form.style.display = 'none';
         document.getElementById('successMsg').style.display = 'block';
