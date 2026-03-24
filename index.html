@@ -3,34 +3,36 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Have fun with AI! — Office Hours</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <title>Have fun with AI! — Office Hours · Databricks</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --red: #FF3621;
-      --bg: #0a0a0a;
-      --surface: #111;
-      --border: #1f1f1f;
-      --white: #f5f5f0;
-      --muted: #666;
+      --purple: #5C4EE5;
+      --dark: #1a1a1a;
+      --bg: #ffffff;
+      --bg2: #f7f7f8;
+      --border: #e8e8ea;
+      --muted: #6b7280;
+      --text: #1a1a1a;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       background: var(--bg);
-      color: var(--white);
+      color: var(--text);
       overflow-x: hidden;
     }
 
     /* REVEAL */
     .reveal {
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-d1 { transition-delay: 0.1s; }
@@ -42,77 +44,100 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 20px 48px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      height: 64px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background 0.3s, border-color 0.3s;
-      border-bottom: 1px solid transparent;
     }
-    nav.scrolled {
-      background: rgba(10,10,10,0.92);
-      backdrop-filter: blur(16px);
-      border-color: var(--border);
+
+    .nav-logo img { height: 28px; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
-    .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: var(--white);
-      text-decoration: none;
+
+    .nav-tag {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
     }
-    .nav-logo span { color: var(--red); }
+
     .nav-cta {
       background: var(--red);
       color: #fff;
       padding: 9px 20px;
-      border-radius: 100px;
+      border-radius: 6px;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       text-decoration: none;
       transition: background 0.2s;
     }
-    .nav-cta:hover { background: #ff5540; }
+    .nav-cta:hover { background: #e02a15; }
 
     /* HERO */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 48px 80px;
+      padding: 120px 48px 80px;
+      background: var(--dark);
       position: relative;
       overflow: hidden;
     }
 
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
     .hero-glow {
       position: absolute;
-      top: 10%; right: -100px;
+      top: -100px; right: -100px;
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(255,54,33,0.12) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(92,78,229,0.2) 0%, transparent 65%);
       border-radius: 50%;
       pointer-events: none;
     }
 
     .hero-glow-2 {
       position: absolute;
-      bottom: 0; left: -80px;
+      bottom: -100px; left: 100px;
       width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(255,54,33,0.07) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(255,54,33,0.15) 0%, transparent 65%);
       border-radius: 50%;
       pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
     }
 
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--red);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px;
       font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
       margin-bottom: 28px;
     }
+
     .hero-eyebrow::before {
       content: '';
       width: 6px; height: 6px;
@@ -120,6 +145,7 @@
       background: var(--red);
       animation: pulse 2s infinite;
     }
+
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(1.5); }
@@ -127,134 +153,168 @@
 
     .hero h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(3rem, 7vw, 6.5rem);
-      line-height: 1;
-      letter-spacing: -3px;
-      margin-bottom: 32px;
-      max-width: 800px;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: #fff;
+      margin-bottom: 24px;
     }
+
     .hero h1 em { font-style: italic; color: var(--red); }
+
+    .hero-desc {
+      font-size: 17px;
+      color: rgba(255,255,255,0.6);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 48px;
+    }
 
     .hero-bottom {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 40px;
+      align-items: center;
+      gap: 32px;
       flex-wrap: wrap;
-    }
-
-    .hero-desc {
-      font-size: 15px;
-      color: var(--muted);
-      max-width: 420px;
-      line-height: 1.8;
     }
 
     .hero-dates {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
     .date-pill {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 100px;
-      padding: 10px 20px;
+      padding: 8px 18px;
       font-size: 13px;
-      font-weight: 500;
-      color: var(--white);
+      font-weight: 600;
+      color: #fff;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
-    .date-pill span { color: var(--red); font-weight: 600; }
 
-    /* WHAT TO EXPECT */
+    .date-pill .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    .hero-cta {
+      background: var(--red);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .hero-cta:hover { background: #e02a15; transform: translateY(-1px); }
+
+    /* SEPARATOR */
+    .sep {
+      height: 4px;
+      background: linear-gradient(90deg, var(--red), var(--purple));
+    }
+
+    /* SECTION */
     .section {
-      padding: 100px 48px;
-      border-top: 1px solid var(--border);
+      padding: 80px 48px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .section-label {
+    .section-eyebrow {
       font-size: 11px;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 48px;
+      color: var(--red);
+      margin-bottom: 16px;
     }
 
     .section h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
       letter-spacing: -1px;
-      line-height: 1.1;
-      margin-bottom: 56px;
+      line-height: 1.15;
+      margin-bottom: 48px;
+      color: var(--dark);
     }
-    .section h2 em { font-style: italic; color: var(--red); }
 
+    .section h2 em { font-style: italic; color: var(--purple); }
+
+    /* CARDS */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
+      gap: 24px;
     }
 
     .card {
-      background: var(--surface);
-      padding: 36px 32px;
-      transition: background 0.2s;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      transition: box-shadow 0.2s, transform 0.2s;
     }
-    .card:hover { background: #161616; }
+    .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
 
-    .card-num {
+    .card-tag {
+      display: inline-block;
+      background: #f0effe;
+      color: var(--purple);
       font-size: 10px;
-      color: var(--red);
-      letter-spacing: 2px;
       font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
       margin-bottom: 16px;
     }
 
     .card h3 {
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 17px;
+      font-weight: 700;
       margin-bottom: 10px;
-      color: var(--white);
+      color: var(--dark);
     }
 
     .card p {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--muted);
       line-height: 1.7;
     }
 
     /* FORM SECTION */
     .form-section {
-      padding: 100px 48px;
-      border-top: 1px solid var(--border);
+      padding: 80px 48px;
+      background: var(--bg2);
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: start;
     }
 
+    .form-left {}
+
     .form-left h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
       letter-spacing: -1px;
-      line-height: 1.1;
-      margin-bottom: 24px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: var(--dark);
     }
-    .form-left h2 em { font-style: italic; color: var(--red); }
+    .form-left h2 em { font-style: italic; color: var(--purple); }
 
-    .form-left p {
-      font-size: 14px;
+    .form-left > p {
+      font-size: 15px;
       color: var(--muted);
       line-height: 1.8;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
 
     .session-list {
@@ -264,6 +324,7 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
+      background: var(--bg);
     }
 
     .session-item {
@@ -271,7 +332,6 @@
       align-items: center;
       gap: 16px;
       padding: 16px 20px;
-      background: var(--surface);
       border-bottom: 1px solid var(--border);
     }
     .session-item:last-child { border-bottom: none; }
@@ -284,150 +344,140 @@
     }
 
     .session-info { flex: 1; }
-    .session-date {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--white);
-    }
-    .session-time {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .session-date { font-size: 14px; font-weight: 600; color: var(--dark); }
+    .session-time { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
     .session-badge {
       font-size: 10px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      color: var(--red);
-      font-weight: 600;
+      color: var(--purple);
+      font-weight: 700;
+      background: #f0effe;
+      padding: 3px 8px;
+      border-radius: 4px;
     }
 
     /* FORM */
     .form-right {
-      background: var(--surface);
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 16px;
       padding: 40px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     }
 
     .form-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--white);
-      margin-bottom: 28px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
     }
 
-    .form-group {
-      margin-bottom: 20px;
+    .form-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
     }
 
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
+
+    .form-group { margin-bottom: 16px; }
 
     label {
       display: block;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-      font-weight: 500;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 6px;
     }
 
     input, select {
       width: 100%;
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 16px;
+      border-radius: 8px;
+      padding: 11px 14px;
       font-size: 14px;
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      transition: border-color 0.2s;
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s, box-shadow 0.2s;
       outline: none;
       appearance: none;
     }
 
     input:focus, select:focus {
-      border-color: var(--red);
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(92,78,229,0.1);
     }
 
-    input::placeholder { color: #444; }
+    input::placeholder { color: #bbb; }
 
     select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%23666'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%236b7280'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: right 16px center;
-      padding-right: 40px;
+      background-position: right 14px center;
+      padding-right: 36px;
     }
 
-    select option { background: #1a1a1a; }
+    /* MATURITY */
+    .maturity-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 10px;
+      display: block;
+    }
 
-    /* AI MATURITY */
     .maturity-group {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-bottom: 24px;
+      gap: 8px;
+      margin-bottom: 20px;
     }
 
     .maturity-option {
       display: flex;
       align-items: center;
       gap: 12px;
-      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
+      border-radius: 8px;
+      padding: 12px 14px;
       cursor: pointer;
       transition: border-color 0.2s, background 0.2s;
+      background: var(--bg);
     }
-
-    .maturity-option:hover { border-color: #444; }
+    .maturity-option:hover { border-color: var(--purple); background: #f9f8ff; }
+    .maturity-option.selected { border-color: var(--purple); background: #f0effe; }
 
     .maturity-option input[type="radio"] {
       width: 16px; height: 16px;
-      accent-color: var(--red);
+      accent-color: var(--purple);
       flex-shrink: 0;
-      cursor: pointer;
     }
 
-    .maturity-option.selected {
-      border-color: var(--red);
-      background: rgba(255,54,33,0.06);
-    }
-
-    .maturity-text {}
-    .maturity-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--white);
-    }
-    .maturity-desc {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .maturity-title { font-size: 13px; font-weight: 600; color: var(--dark); }
+    .maturity-desc { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
     .submit-btn {
       width: 100%;
       background: var(--red);
       color: #fff;
       border: none;
-      border-radius: 12px;
-      padding: 16px;
+      border-radius: 8px;
+      padding: 14px;
       font-size: 15px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
     }
-    .submit-btn:hover { background: #ff5540; }
+    .submit-btn:hover { background: #e02a15; }
     .submit-btn:active { transform: scale(0.99); }
 
     /* SUCCESS */
@@ -438,43 +488,41 @@
     }
     .success-msg .check {
       width: 56px; height: 56px;
-      background: rgba(255,54,33,0.1);
+      background: #f0effe;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 20px;
       font-size: 24px;
+      color: var(--purple);
     }
     .success-msg h3 {
       font-family: 'DM Serif Display', serif;
       font-size: 1.6rem;
       margin-bottom: 10px;
+      color: var(--dark);
     }
     .success-msg p { font-size: 14px; color: var(--muted); }
 
     /* FOOTER */
     footer {
-      padding: 48px;
-      border-top: 1px solid var(--border);
+      padding: 40px 48px;
+      background: var(--dark);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
     }
-    .footer-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-    }
-    .footer-logo span { color: var(--red); }
-    footer p { font-size: 12px; color: var(--muted); }
+    footer img { height: 24px; filter: brightness(0) invert(1); opacity: 0.7; }
+    footer p { font-size: 12px; color: rgba(255,255,255,0.4); }
 
     @media (max-width: 768px) {
       nav, .hero, .section, footer { padding-left: 24px; padding-right: 24px; }
-      .hero { padding-bottom: 60px; }
+      .hero { padding-top: 100px; }
       .cards-grid { grid-template-columns: 1fr; }
-      .form-section { grid-template-columns: 1fr; padding: 60px 24px; gap: 48px; }
+      .form-section { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
       .form-row { grid-template-columns: 1fr; }
     }
   </style>
@@ -482,45 +530,55 @@
 <body>
 
   <!-- NAV -->
-  <nav id="nav">
-    <a href="#" class="nav-logo">Have fun with <span>AI</span></a>
-    <a href="#register" class="nav-cta">Register now</a>
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="databricks-logo.png" alt="Databricks" style="filter: none; height:28px;"/>
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">Office Hours · Genie AI/BI</span>
+      <a href="#register" class="nav-cta">Register now</a>
+    </div>
   </nav>
 
   <!-- HERO -->
-  <section class="hero" id="top">
+  <section class="hero">
+    <div class="hero-grid"></div>
     <div class="hero-glow"></div>
     <div class="hero-glow-2"></div>
-
-    <div class="hero-eyebrow reveal">Office Hours · Genie AI/BI · April 2026</div>
-    <h1 class="reveal reveal-d1">Have fun<br/>with <em>AI.</em></h1>
-    <div class="hero-bottom">
-      <p class="hero-desc reveal reveal-d2">Three hands-on sessions designed for business teams ready to explore what Genie AI/BI can do — no technical background required.</p>
-      <div class="hero-dates reveal reveal-d3">
-        <div class="date-pill"><span>Apr 9</span> 14:00</div>
-        <div class="date-pill"><span>Apr 16</span> 14:00</div>
-        <div class="date-pill"><span>Apr 23</span> 14:00</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow reveal">Free · April 2026 · Genie AI/BI</div>
+      <h1 class="reveal reveal-d1">Have fun<br/>with <em>AI.</em></h1>
+      <p class="hero-desc reveal reveal-d2">Three hands-on office hours designed for business teams ready to explore what Genie AI/BI can do — no technical background required.</p>
+      <div class="hero-bottom reveal reveal-d3">
+        <div class="hero-dates">
+          <div class="date-pill"><div class="dot"></div>Apr 9 · 14:00</div>
+          <div class="date-pill"><div class="dot"></div>Apr 16 · 14:00</div>
+          <div class="date-pill"><div class="dot"></div>Apr 23 · 14:00</div>
+        </div>
+        <a href="#register" class="hero-cta">Reserve your spot →</a>
       </div>
     </div>
   </section>
 
+  <div class="sep"></div>
+
   <!-- WHAT TO EXPECT -->
   <section class="section">
-    <div class="section-label reveal">What to expect</div>
+    <div class="section-eyebrow reveal">What to expect</div>
     <h2 class="reveal">Three sessions.<br/><em>One goal.</em></h2>
     <div class="cards-grid reveal">
       <div class="card">
-        <div class="card-num">SESSION 01 · APR 9</div>
+        <div class="card-tag">Session 01 · Apr 9</div>
         <h3>Meet Genie AI/BI</h3>
         <p>Discover what Genie can do for your business. Ask questions in plain English, get instant insights — no SQL needed.</p>
       </div>
       <div class="card">
-        <div class="card-num">SESSION 02 · APR 16</div>
+        <div class="card-tag">Session 02 · Apr 16</div>
         <h3>Your Data, Your Questions</h3>
         <p>Bring your own use cases. We'll explore how Genie handles real business questions and surfaces actionable answers.</p>
       </div>
       <div class="card">
-        <div class="card-num">SESSION 03 · APR 23</div>
+        <div class="card-tag">Session 03 · Apr 23</div>
         <h3>From Insight to Action</h3>
         <p>Turn what you've learned into a plan. How to embed AI-driven insights into your team's daily decision-making.</p>
       </div>
@@ -529,12 +587,10 @@
 
   <!-- REGISTER -->
   <div class="form-section" id="register">
-
     <div class="form-left reveal">
-      <div class="section-label">Reserve your spot</div>
+      <div class="section-eyebrow">Reserve your spot</div>
       <h2>Join us.<br/><em>It's free.</em></h2>
       <p>Sessions are open to business teams across all functions. Each session is 60 minutes, interactive, and focused on what matters to you.</p>
-
       <div class="session-list">
         <div class="session-item">
           <div class="session-dot"></div>
@@ -565,6 +621,7 @@
 
     <div class="form-right reveal reveal-d1">
       <div class="form-title">Register for the Office Hours</div>
+      <div class="form-subtitle">Free · 60 min per session · Business teams</div>
 
       <form id="registrationForm">
         <div class="form-row">
@@ -577,42 +634,38 @@
             <input type="text" id="lastName" name="lastName" placeholder="Dupont" required/>
           </div>
         </div>
-
         <div class="form-group">
           <label for="email">Work email</label>
           <input type="email" id="email" name="email" placeholder="marie.dupont@company.com" required/>
         </div>
-
         <div class="form-group">
           <label for="company">Company</label>
           <input type="text" id="company" name="company" placeholder="Your company" required/>
         </div>
 
-        <div class="form-group">
-          <label>AI maturity level</label>
-          <div class="maturity-group">
-            <label class="maturity-option" id="opt1">
-              <input type="radio" name="aiMaturity" value="Explorer — Just getting started with AI" required/>
-              <div class="maturity-text">
-                <div class="maturity-title">🌱 Explorer</div>
-                <div class="maturity-desc">Just getting started with AI</div>
-              </div>
-            </label>
-            <label class="maturity-option" id="opt2">
-              <input type="radio" name="aiMaturity" value="Builder — Using AI tools, looking to scale"/>
-              <div class="maturity-text">
-                <div class="maturity-title">🚀 Builder</div>
-                <div class="maturity-desc">Using AI tools, looking to scale</div>
-              </div>
-            </label>
-            <label class="maturity-option" id="opt3">
-              <input type="radio" name="aiMaturity" value="Optimizer — AI is embedded in my workflows"/>
-              <div class="maturity-text">
-                <div class="maturity-title">⚡ Optimizer</div>
-                <div class="maturity-desc">AI is embedded in my workflows</div>
-              </div>
-            </label>
-          </div>
+        <span class="maturity-label">AI maturity level</span>
+        <div class="maturity-group">
+          <label class="maturity-option">
+            <input type="radio" name="aiMaturity" value="Explorer — Just getting started with AI" required/>
+            <div>
+              <div class="maturity-title">🌱 Explorer</div>
+              <div class="maturity-desc">Just getting started with AI</div>
+            </div>
+          </label>
+          <label class="maturity-option">
+            <input type="radio" name="aiMaturity" value="Builder — Using AI tools, looking to scale"/>
+            <div>
+              <div class="maturity-title">🚀 Builder</div>
+              <div class="maturity-desc">Using AI tools, looking to scale</div>
+            </div>
+          </label>
+          <label class="maturity-option">
+            <input type="radio" name="aiMaturity" value="Optimizer — AI is embedded in my workflows"/>
+            <div>
+              <div class="maturity-title">⚡ Optimizer</div>
+              <div class="maturity-desc">AI is embedded in my workflows</div>
+            </div>
+          </label>
         </div>
 
         <button type="submit" class="submit-btn">Reserve my spot →</button>
@@ -621,21 +674,21 @@
       <div class="success-msg" id="successMsg">
         <div class="check">✓</div>
         <h3>You're in!</h3>
-        <p>We'll send you a confirmation email with the session details. See you on April 9.</p>
+        <p>We'll be in touch with the session details. See you on April 9.</p>
       </div>
     </div>
   </div>
 
   <!-- FOOTER -->
-  <footer class="reveal">
-    <div class="footer-logo">Databricks <span>EMEA</span></div>
-    <p>Have fun with AI · Office Hours · April 2026</p>
+  <footer>
+    <img src="databricks-logo.png" alt="Databricks"/>
+    <p>Have fun with AI · Office Hours · April 2026 · Databricks EMEA</p>
   </footer>
 
   <script>
     // NAV scroll
     window.addEventListener('scroll', () => {
-      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+      document.getElementById && document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 40);
     });
 
     // REVEAL
@@ -644,7 +697,7 @@
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    // MATURITY selection highlight
+    // MATURITY highlight
     document.querySelectorAll('.maturity-option input[type="radio"]').forEach(radio => {
       radio.addEventListener('change', () => {
         document.querySelectorAll('.maturity-option').forEach(o => o.classList.remove('selected'));
