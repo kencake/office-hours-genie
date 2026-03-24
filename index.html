@@ -669,17 +669,18 @@
         timestamp: new Date().toISOString()
       };
 
-      // Replace SCRIPT_URL with your Google Apps Script URL
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwWxl9D6jGNZiuZhghcdQ3oMs2i7AMofZw4W6au_sr9PYBf6_IUz8h_FuCUf-mTkKT8og/exec';
-
       try {
-        const params = new URLSearchParams(data);
-        await fetch(SCRIPT_URL + '?' + params.toString(), {
-          method: 'GET',
-          mode: 'no-cors'
+        const res = await fetch('https://formspree.io/f/xjganlzn', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
         });
-        form.style.display = 'none';
-        document.getElementById('successMsg').style.display = 'block';
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('successMsg').style.display = 'block';
+        } else {
+          throw new Error('Failed');
+        }
       } catch (err) {
         btn.textContent = 'Reserve my spot →';
         btn.disabled = false;
